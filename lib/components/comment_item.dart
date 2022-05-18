@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import 'package:qtest/constants.dart';
 
 class CommentItem extends StatelessWidget {
-  final String? input1;
-  final String? input2;
-  final String? resource;
+  final String? leading;
+  final String? centerText;
   final Function()? onTap;
 
-  CommentItem({this.input1, this.input2, this.resource,this.onTap});
+  CommentItem({this.leading, this.centerText, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class CommentItem extends StatelessWidget {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () => onTap!() ,
+            onTap: () => onTap!(),
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               decoration: const BoxDecoration(
@@ -30,7 +29,7 @@ class CommentItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    input1 ?? "-" ,
+                    leading ?? "-",
                     style: const TextStyle(
                       color: Constants.mainColor,
                       fontSize: 36,
@@ -41,7 +40,7 @@ class CommentItem extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      input2 ?? "-",
+                      centerText ?? "-",
                       style: const TextStyle(
                         color: Constants.darkGray,
                         fontSize: 14,

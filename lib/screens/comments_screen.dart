@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qtest/animations/slide_animation.dart';
 import 'package:qtest/components/comment_item.dart';
+import 'package:qtest/components/reusable_alert_dialog.dart';
+import 'package:qtest/components/reusable_cupertino_alert_dialog.dart';
 import 'package:qtest/providers/comment_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +19,6 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage>
     with TickerProviderStateMixin {
-
   void _loadMore() async {
     var commentProvider = context.read<CommentProvider>();
 
@@ -25,7 +26,7 @@ class _CommentsPageState extends State<CommentsPage>
         !commentProvider.firstLoading &&
         !commentProvider.loadMoreRunning &&
         _controller.position.extentAfter < 300) {
-      commentProvider.searchMoreComments();
+      commentProvider.searchComments(false);
     }
   }
 
@@ -38,10 +39,11 @@ class _CommentsPageState extends State<CommentsPage>
 
     _animationController = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: Constants.animationDuration));
+        duration:
+            const Duration(milliseconds: Constants.defaultAnimationDuration));
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      context.read<CommentProvider>().searchComments();
+      context.read<CommentProvider>().searchComments(true);
     });
     _controller = ScrollController()..addListener(_loadMore);
   }
@@ -60,75 +62,58 @@ class _CommentsPageState extends State<CommentsPage>
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Comments"),
+          title: const Text(Constants.appBarText),
         ),
         body: commentProvider.firstLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Center(
+                child:  Platform.isIOS
+                    ? const CupertinoActivityIndicator()
+                    : const CircularProgressIndicator(),
               )
             : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _controller,
-                      itemCount: commentProvider.commentsList.length,
-                      itemBuilder: (_, index) => SlideAnimation(
-                        itemCount: commentProvider.commentsList.length,
-                        position: index,
-                        slideDirection: SlideDirection.fromLeft,
-                        animationController: _animationController!,
-                        child: CommentItem(
-                          onTap: Platform.isIOS
-                              ? () => showCupertinoDialog<void>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        CupertinoAlertDialog(
-                                      title: Text(commentProvider
-                                              .commentsList[index].email ??
-                                          ""),
-                                      content: Text(commentProvider
-                                              .commentsList[index].body ??
-                                          ""),
-                                      actions: <CupertinoDialogAction>[
-                                        CupertinoDialogAction(
-                                          child: const Text('Close'),
-                                          onPressed: () {
-                                            Navigator.pop(context);
+                  commentProvider.commentsList.isEmpty
+                      ? const Center(child: Text(Constants.noDataToDisplay))
+                      : Expanded(
+                          child: ListView.builder(
+                            controller: _controller,
+                            itemCount: commentProvider.commentsList.length,
+                            itemBuilder: (_, index) => SlideAnimation(
+                              itemCount: commentProvider.commentsList.length,
+                              position: index,
+                              slideDirection: SlideDirection.fromLeft,
+                              animationController: _animationController!,
+                              child: CommentItem(
+                                onTap: Platform.isIOS
+                                    ? () => showCupertinoDialog<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ReusableCupertinoDialog(
+                                              item: commentProvider
+                                                  .commentsList[index]);
+                                        })
+                                    : () => showDialog<void>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return ReusableAlertDialog(
+                                                alertItem: commentProvider
+                                                    .commentsList[index]);
                                           },
                                         ),
-                                      ],
-                                    ),
-                                  )
-                              : () => showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: Text(commentProvider
-                                              .commentsList[index].email ??
-                                          ""),
-                                      content: Text(commentProvider
-                                              .commentsList[index].body ??
-                                          ""),
-                                      actions: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Close'))
-                                      ],
-                                    ),
-                                  ),
-                          input1:
-                              commentProvider.commentsList[index].id.toString(),
-                          input2: commentProvider.commentsList[index].name,
+                                leading: commentProvider.commentsList[index].id
+                                    .toString(),
+                                centerText:
+                                    commentProvider.commentsList[index].name,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                   if (commentProvider.loadMoreRunning)
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 40),
                       child: Center(
-                        child: Platform.isIOS
+                        child:  Platform.isIOS
                             ? const CupertinoActivityIndicator()
                             : const CircularProgressIndicator(),
                       ),

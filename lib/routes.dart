@@ -1,7 +1,6 @@
 class ApiRoutes {
-  static const String apiUrl = "https://jsonplaceholder.typicode.com/";
-  //BASE URL
-  static const String baseURL = apiUrl;
+  static const String baseUrl = "https://jsonplaceholder.typicode.com/";
+
   //COMMENTS
-  static const String searchComments = baseURL + "comments";
+  static const String searchComments = baseUrl + "comments";
 }

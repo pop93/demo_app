@@ -21,13 +21,14 @@ class HttpClient {
     } catch (e) {
       if (e is SocketException) {
         //treat SocketException
+        logger.d("Socket exception ${e.toString()}");
         print("Socket exception: ${e.toString()}");
         return null;
       } else if (e is TimeoutException) {
-        print("Timeout exception: ${e.toString()}");
+        logger.d("TimeOut exception ${e.toString()}");
         return null;
       } else {
-        print("Unhandled exception: ${e.toString()}");
+        logger.d("Unhandled exception ${e.toString()}");
       }
       return null;
     }
