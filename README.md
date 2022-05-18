@@ -11,7 +11,7 @@ flutter pub get
 flutter packages pub run build_runner build --delete-conflicting-outputs
 
 ### Build apk for android - dev env? ###
-flutter build apk --flavor dev -t lib/main_dev.dart
+flutter build apk --flavor dev -t lib/main/main_dev.dart
 
 ### flavour
 entry point main_<...>
