@@ -1,18 +1,23 @@
-# qtest
+# README #
+This README would normally document whatever steps are necessary to get your application up and running.
 
-A new Flutter project.
+# App desc #
+Fetch data from api and view in table with load more functionality.
 
-## Getting Started
+### First build? ###
+flutter pub get
 
-#  flutter build apk --flavor prod -t lib/main_prod.dart
+### Json serialization and database models? ###
+flutter packages pub run build_runner build --delete-conflicting-outputs
 
-This project is a starting point for a Flutter application.
+### Build apk for android - dev env? ###
+flutter build apk --flavor dev -t lib/main_dev.dart
 
-A few resources to get you started if this is your first Flutter project:
+### flavour
+entry point main_<...>
+flavor (dev,stag,prod)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Flutter version checkout? ###
+$ cd flutter
+$ # git checkout [branch, tag or commit hash]
+$ git checkout v1.22.6       //example

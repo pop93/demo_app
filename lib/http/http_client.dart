@@ -24,13 +24,12 @@ class HttpClient {
         print("Socket exception: ${e.toString()}");
         return null;
       } else if (e is TimeoutException) {
-        //treat TimeoutException
         print("Timeout exception: ${e.toString()}");
         return null;
-      } else
+      } else {
         print("Unhandled exception: ${e.toString()}");
-        return null;
-
+      }
+      return null;
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
+import '../constants.dart';
 
 class CommentItem extends StatelessWidget {
   final String? input1;
@@ -20,7 +20,7 @@ class CommentItem extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               decoration: const BoxDecoration(
-                color: AppColors.backgroundGray,
+                color: Constants.backgroundGray,
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
                 ),
@@ -32,7 +32,7 @@ class CommentItem extends StatelessWidget {
                   Text(
                     input1 ?? "-" ,
                     style: const TextStyle(
-                      color: AppColors.mainColor,
+                      color: Constants.mainColor,
                       fontSize: 36,
                     ),
                   ),
@@ -43,7 +43,7 @@ class CommentItem extends StatelessWidget {
                     child: Text(
                       input2 ?? "-",
                       style: const TextStyle(
-                        color: AppColors.darkGray,
+                        color: Constants.darkGray,
                         fontSize: 14,
                       ),
                       overflow: TextOverflow.clip,
@@ -57,7 +57,7 @@ class CommentItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
               height: 5,
-              color: AppColors.mainColor,
+              color: Constants.mainColor,
             ),
           ),
         ],
