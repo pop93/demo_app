@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:qtest/logger/logger.dart';
+import 'package:qtest/utils/logger.dart';
 
 class HttpClient {
 

@@ -1,8 +1,8 @@
-import 'package:qtest/database/database.dart';
+import 'package:qtest/source_local/database.dart';
 import 'package:qtest/models/comment.dart';
-import 'package:qtest/repository/remoteData/comment_service_api.dart';
+import 'package:qtest/source_remote/comment_service_api.dart';
 
-import '../../connectivity.dart';
+import '../utils/connectivity.dart';
 
 class CommentRepository {
   final CommentService _commentService = CommentService();
@@ -15,17 +15,15 @@ class CommentRepository {
   Future<List<Comment>?> searchComments(clearData) async {
     if (await _connection.check()) {
       commentsList = await _commentService.getComments(page);
-      await _database.putData(commentsList, clearData);
-      if (commentsList != null) {
-        if (commentsList!.isNotEmpty) {
-          setPage();
-        }
+      if (commentsList != null && commentsList!.isNotEmpty) {
+        await _database.putData(commentsList, clearData);
+        incrementCurrentPage();
       }
     }
     return await _database.fetchDataFromDatabase();
   }
 
-  setPage() {
+  incrementCurrentPage() {
     page += 1;
   }
 }

@@ -1,15 +1,15 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qtest/animations/slide_animation.dart';
-import 'package:qtest/components/comment_item.dart';
-import 'package:qtest/components/reusable_alert_dialog.dart';
-import 'package:qtest/components/reusable_cupertino_alert_dialog.dart';
 import 'package:qtest/providers/comment_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:qtest/repository/localData/comment_repository.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
+import '../common/animations/slide_animation.dart';
+import '../common/widgets/comment_item.dart';
+import '../common/widgets/reusable_alert_dialog.dart';
+import '../common/widgets/reusable_cupertino_alert_dialog.dart';
+
 
 class CommentsPage extends StatefulWidget {
   const CommentsPage({Key? key}) : super(key: key);
@@ -23,8 +23,7 @@ class _CommentsPageState extends State<CommentsPage>
   void _loadMore() async {
     var commentProvider = context.read<CommentProvider>();
 
-    if (commentProvider.hasNextPage &&
-        !commentProvider.firstLoading &&
+    if (!commentProvider.firstLoading &&
         !commentProvider.loadMoreRunning &&
         _controller.position.extentAfter < 300) {
       commentProvider.searchComments(false);

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:qtest/http/http_client.dart';
+import 'package:qtest/network/http_client.dart';
 import 'package:qtest/models/comment.dart';
 import 'package:qtest/routes.dart';
 

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum BuildFlavor { production, development, staging }
 
 class FlavorValue {
@@ -11,18 +9,16 @@ class FlavorValue {
 class FlavorConfig {
   factory FlavorConfig({
     required BuildFlavor flavor,
-    required Color color,
     required FlavorValue flavorValue,
   }) {
-    _instance = FlavorConfig._internal(flavor,color, flavorValue);
+    _instance = FlavorConfig._internal(flavor, flavorValue);
     return _instance;
   }
 
-  FlavorConfig._internal(this.flavor,this.color, this.flavorValue);
+  FlavorConfig._internal(this.flavor, this.flavorValue);
 
   final BuildFlavor flavor;
   final FlavorValue flavorValue;
-  final Color color;
 
   static late FlavorConfig _instance;
 
