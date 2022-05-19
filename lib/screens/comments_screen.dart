@@ -7,6 +7,7 @@ import 'package:qtest/components/reusable_alert_dialog.dart';
 import 'package:qtest/components/reusable_cupertino_alert_dialog.dart';
 import 'package:qtest/providers/comment_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:qtest/repository/localData/comment_repository.dart';
 
 import '../constants.dart';
 
@@ -66,7 +67,7 @@ class _CommentsPageState extends State<CommentsPage>
         ),
         body: commentProvider.firstLoading
             ? Center(
-                child:  Platform.isIOS
+                child: Platform.isIOS
                     ? const CupertinoActivityIndicator()
                     : const CircularProgressIndicator(),
               )
@@ -113,7 +114,7 @@ class _CommentsPageState extends State<CommentsPage>
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 40),
                       child: Center(
-                        child:  Platform.isIOS
+                        child: Platform.isIOS
                             ? const CupertinoActivityIndicator()
                             : const CircularProgressIndicator(),
                       ),

@@ -10,10 +10,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CommentAdapter());
   await Database().openBox();
-  runApp(const QTest());
 
-  BuildEnvironment.init(
-      flavor: BuildFlavor.development, baseUrl: ApiRoutes.baseUrl);
-  assert(env != null);
+  FlavorConfig(
+      flavor: BuildFlavor.development,
+      color: Colors.deepPurpleAccent,
+      flavorValue: FlavorValue(baseUrl: ApiRoutes.devBaseUrl));
   runApp(const QTest());
 }

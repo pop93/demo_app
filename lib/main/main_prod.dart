@@ -12,8 +12,9 @@ void main() async {
   await Database().openBox();
   runApp(const QTest());
 
-  BuildEnvironment.init(
-      flavor: BuildFlavor.production, baseUrl: ApiRoutes.baseUrl);
-  assert(env != null);
+  FlavorConfig(
+      flavor: BuildFlavor.development,
+      color: Colors.deepPurpleAccent,
+      flavorValue: FlavorValue(baseUrl: ApiRoutes.prodBaseUrl));
   runApp(const QTest());
 }

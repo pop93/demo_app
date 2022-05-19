@@ -12,12 +12,6 @@ class Constants {
   static const String noDataToDisplay = "No data to display";
   static const String appBarText = "Comments";
 
-  static const String alertDialogClose = "close";
+  static const String alertDialogClose = "Close";
 
-
-  showIndicator() {
-    Platform.isIOS
-        ? const CupertinoActivityIndicator()
-        : const CircularProgressIndicator();
-  }
 }

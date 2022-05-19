@@ -1,16 +1,30 @@
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 
 enum BuildFlavor { production, development, staging }
 
-BuildEnvironment? get env => _env;
-BuildEnvironment? _env;
-
-class BuildEnvironment {
+class FlavorValue {
   final String baseUrl;
+
+  FlavorValue({required this.baseUrl});
+}
+
+class FlavorConfig {
+  factory FlavorConfig({
+    required BuildFlavor flavor,
+    required Color color,
+    required FlavorValue flavorValue,
+  }) {
+    _instance = FlavorConfig._internal(flavor,color, flavorValue);
+    return _instance;
+  }
+
+  FlavorConfig._internal(this.flavor,this.color, this.flavorValue);
+
   final BuildFlavor flavor;
+  final FlavorValue flavorValue;
+  final Color color;
 
-  BuildEnvironment._init({required this.flavor, required this.baseUrl});
+  static late FlavorConfig _instance;
 
-  static void init({@required flavor, @required baseUrl}) =>
-      _env ??= BuildEnvironment._init(flavor: flavor, baseUrl: baseUrl);
+  static FlavorConfig get instance => _instance;
 }

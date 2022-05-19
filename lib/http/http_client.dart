@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:qtest/logger/logger.dart';
 
 class HttpClient {
+
   static Future<http.Response?> get(String url) async {
     final logger = LoggerHelper.logger;
 

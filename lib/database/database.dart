@@ -5,12 +5,12 @@ import 'package:qtest/models/comment.dart';
 class Database {
   Box<Comment>? box;
 
-  Future putData(firstComments, clearData) async {
+  Future putData(comments, clearData) async {
     box = await Hive.openBox<Comment>('comments');
     await clearData
         ? clearDataFromDatabase().then(
-            (value) => firstComments.forEach((comment) => {box?.add(comment)}))
-        : firstComments.forEach((comment) => {box?.add(comment)});
+            (value) => comments.forEach((comment) => {box?.add(comment)}))
+        : comments.forEach((comment) => {box?.add(comment)});
   }
 
   Future<List<Comment>?> fetchDataFromDatabase() async {

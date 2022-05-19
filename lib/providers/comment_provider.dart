@@ -3,10 +3,7 @@ import 'package:qtest/models/comment.dart';
 import 'package:qtest/repository/localData/comment_repository.dart';
 
 class CommentProvider with ChangeNotifier {
-
-  int _page = 1;
-
-  int get page => _page;
+  final CommentRepository _commentRepository = CommentRepository();
 
   bool _hasNextPage = true;
 
@@ -41,17 +38,12 @@ class CommentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  setPageCounter() {
-    _page += 1;
-  }
-
   Future<bool?> searchComments(isFirstLoading) async {
     List<Comment>? commentsList = [];
 
     isFirstLoading ? setFirstLoading(true) : setLoadMoreRunning(true);
-    commentsList = await CommentRepository().searchComments(page, firstLoading);
+    commentsList = await _commentRepository.searchComments(firstLoading);
     _comments = commentsList;
-    setPageCounter();
     isFirstLoading ? setFirstLoading(false) : setLoadMoreRunning(false);
   }
 }

@@ -5,13 +5,27 @@ import 'package:qtest/repository/remoteData/comment_service_api.dart';
 import '../../connectivity.dart';
 
 class CommentRepository {
-  List<Comment>? commentsList = [];
+  final CommentService _commentService = CommentService();
+  final Database _database = Database();
+  final Connection _connection = Connection();
 
-  Future<List<Comment>?> searchComments(page, clearData) async {
-    if (await Connection().check()) {
-      commentsList = await CommentService().getComments(page);
-      await Database().putData(commentsList, clearData);
+  List<Comment>? commentsList = [];
+  int page = 1;
+
+  Future<List<Comment>?> searchComments(clearData) async {
+    if (await _connection.check()) {
+      commentsList = await _commentService.getComments(page);
+      await _database.putData(commentsList, clearData);
+      if (commentsList != null) {
+        if (commentsList!.isNotEmpty) {
+          setPage();
+        }
+      }
     }
-    return await Database().fetchDataFromDatabase();
+    return await _database.fetchDataFromDatabase();
+  }
+
+  setPage() {
+    page += 1;
   }
 }
