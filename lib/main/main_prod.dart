@@ -5,7 +5,7 @@ import 'package:qtest/demo_app.dart';
 import 'package:qtest/routes.dart';
 
 void main() async {
-  MainInit.init();
+  await MainInit.init();
 
   FlavorConfig(
       flavor: BuildFlavor.development,

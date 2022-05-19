@@ -5,7 +5,7 @@ import 'package:qtest/config/env.dart';
 import 'package:qtest/demo_app.dart';
 
 void main() async {
-  MainInit.init();
+  await MainInit.init();
 
   FlavorConfig(
       flavor: BuildFlavor.development,

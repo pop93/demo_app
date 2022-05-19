@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qtest/providers/comment_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:qtest/ui/comments/providers/comment_provider.dart';
 
 import '../../constants.dart';
 import '../common/animations/slide_animation.dart';
